@@ -1,98 +1,256 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Exam Management System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A comprehensive exam management system built with NestJS, TypeScript, and MySQL. This application provides a robust platform for creating, managing, and conducting online examinations.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+### 👨‍💼 User Management
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- User registration and authentication
+- Role-based access control (Admin/User)
+- User profile management
 
-## Project setup
+### 📝 Exam Management
+
+- Create and manage exams
+- Set exam parameters (date, passing percentage, question count)
+- Draft and publish exam states
+- Flexible exam configuration
+
+### ❓ Question Management
+
+- Create multiple choice questions
+- Support for single and multi-select questions
+- Rich question content with multiple options
+- Question bank management
+
+### 🔐 Security Features
+
+- Admin and email guards for protected routes
+- User middleware for request processing
+- Secure authentication system
+
+## Tech Stack
+
+- **Framework**: NestJS
+- **Language**: TypeScript
+- **Database**: MySQL with TypeORM
+- **Documentation**: Swagger/OpenAPI
+- **Validation**: Class Validator & Class Transformer
+- **Security**: Helmet, Compression
+
+## Prerequisites
+
+Before running this application, make sure you have the following installed:
+
+- Node.js (v16 or higher)
+- npm or yarn
+- MySQL database
+- Git
+
+## Environment Setup
+
+1. **Clone the repository**
+
+   ```bash
+   git clone <your-repository-url>
+   cd exam
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration**
+
+   Create a `.env` file in the root directory with the following variables:
+
+   ```env
+   # Database Configuration
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_USERNAME=your_db_username
+   DB_PASSWORD=your_db_password
+   DB_DATABASE=exam_system
+
+   # Application Configuration
+   PORT=3000
+   NODE_ENV=development
+
+   # Add other environment variables as needed
+   ```
+
+4. **Database Setup**
+   - Create a MySQL database named `exam_system`
+   - The application will automatically create tables using TypeORM migrations
+
+## Running the Application
 
 ```bash
-$ npm install
+# Development mode
+npm run start:dev
+# or
+npm run dev
+
+# Production mode
+npm run start:prod
+
+# Debug mode
+npm run start:debug
 ```
 
-## Compile and run the project
+The application will be available at `http://localhost:3000`
+
+### API Documentation
+
+Once the application is running, you can access the Swagger documentation at:
+
+```
+http://localhost:3000/api
+```
+
+## Project Structure
+
+```
+src/
+├── app.controller.ts          # Main application controller
+├── app.module.ts             # Root application module
+├── app.service.ts            # Main application service
+├── main.ts                   # Application entry point
+├── swagger-setup.ts          # Swagger configuration
+├── database/                 # Database configuration
+├── decorators/               # Custom decorators
+├── entities/                 # TypeORM entities
+│   ├── exam.entity.ts        # Exam entity
+│   ├── questions.entity.ts   # Questions entity
+│   └── user.entity.ts        # User entity
+├── exam/                     # Exam module
+│   ├── exam.controller.ts
+│   ├── exam.service.ts
+│   ├── exam.module.ts
+│   └── dto/
+├── question/                 # Question module
+│   ├── question.controller.ts
+│   ├── question.service.ts
+│   ├── question.module.ts
+│   └── dto/
+├── user/                     # User module
+│   ├── user.controller.ts
+│   ├── user.service.ts
+│   ├── user.module.ts
+│   └── dto/
+├── guards/                   # Authentication guards
+├── middlewares/              # Custom middlewares
+└── shared-module/           # Shared utilities and configs
+```
+
+## API Endpoints
+
+### User Management
+
+- `POST /user/signup` - User registration
+- `GET /user/profile` - Get user profile
+- `PUT /user/profile` - Update user profile
+
+### Exam Management
+
+- `POST /exam` - Create new exam (Admin only)
+- `GET /exam` - Get all exams
+- `GET /exam/:id` - Get specific exam
+- `PUT /exam/:id` - Update exam (Admin only)
+- `DELETE /exam/:id` - Delete exam (Admin only)
+
+### Question Management
+
+- `POST /question` - Create new question (Admin only)
+- `GET /question` - Get all questions
+- `GET /question/:id` - Get specific question
+- `PUT /question/:id` - Update question (Admin only)
+- `DELETE /question/:id` - Delete question (Admin only)
+
+## Database Schema
+
+### User Entity
+
+- `user_id` (Primary Key)
+- `email` (Unique)
+- `name` (Unique)
+- `role` (admin/user)
+- `created_on`, `updated_on`
+
+### Exam Entity
+
+- `id` (Primary Key)
+- `exam_name`
+- `total_question`
+- `question_in_exam`
+- `passing_percentage`
+- `exam_date`
+- `role` (DRAFT/PUBLISH)
+- `created_by` (Foreign Key to User)
+
+### Questions Entity
+
+- `id` (Primary Key)
+- `description`
+- `is_multiselect`
+- `options` (Array)
+- `answer` (Array)
+- `exam` (Foreign Key to Exam)
+- `created_by` (Foreign Key to User)
+
+## Testing
 
 ```bash
-# development
-$ npm run start
+# Unit tests
+npm run test
 
-# watch mode
-$ npm run start:dev
+# E2E tests
+npm run test:e2e
 
-# production mode
-$ npm run start:prod
+# Test coverage
+npm run test:cov
+
+# Watch mode
+npm run test:watch
 ```
 
-## Run tests
+## Development
+
+### Code Quality
 
 ```bash
-# unit tests
-$ npm run test
+# Linting
+npm run lint
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Code formatting
+npm run format
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Building for Production
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run build
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Contributing
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the UNLICENSED License - see the package.json file for details.
+
+## Support
+
+For support and questions, please create an issue in the repository or contact the development team.
+
+---
+
+Built with ❤️ using NestJS
