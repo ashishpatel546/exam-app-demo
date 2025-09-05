@@ -1,10 +1,11 @@
-import { BadRequestException, Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { ExamService } from './exam.service';
 import { AddExamDto } from './dto/add-exam.dto';
 import moment from 'moment';
 import { UserEmail } from 'src/decorators/user-decorator';
 import { EmailGaurd } from 'src/gaurd/email-gaurd';
 import { AdminGaurd } from 'src/gaurd/admiin-gaurd';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Controller('exam')
 export class ExamController {
@@ -27,5 +28,20 @@ export class ExamController {
         }
         
         return this.service.addExam(exam, userEmail)
+    }
+
+    @ApiProperty({
+        name: 'exam_name',
+        description: 'exam_name',
+        required: false
+    })
+    @ApiProperty({
+        name: 'order_by',
+        description: 'order_by',
+        required: false
+    })
+    @Get('list-exams')
+    listExams(@Query('order_by') orderBy?: string, @Query('exam_name') exam_name?: string){
+        return this.service.listExam(exam_name, orderBy)
     }
 }

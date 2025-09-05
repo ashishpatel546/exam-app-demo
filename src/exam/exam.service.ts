@@ -37,4 +37,21 @@ export class ExamService {
             throw new InternalServerErrorException(error.message)
         }
     }
+
+    async listExam(exam_name?: string, orderBy= 'exam_name'){
+        try {
+            let query = this.examRepo.createQueryBuilder('exam').select()
+            if(exam_name){
+                query.where('exam.exam_name =:exam_name', {exam_name: exam_name})
+            }
+            if(orderBy){
+                query.orderBy(`exam.${orderBy}`, 'ASC')
+            }
+            const result = await query.execute()
+            return result
+        } catch (error) {
+            this.logger.error(error.message)
+            throw new InternalServerErrorException(error.message)
+        }
+    }
 }
