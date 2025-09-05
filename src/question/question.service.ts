@@ -17,7 +17,7 @@ export class QuestionService {
     async addQeustions(questions: AddQuestionDto, userEmail: string){
         try {
             const userArray = await this.userService.findUserByEmail(userEmail)
-                        if(!userArray || userArray.length===0){
+                        if(!userArray){
                             throw new BadRequestException('User not found with email provided in the header')
                         }
                         const user = userArray[0]

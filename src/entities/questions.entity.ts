@@ -30,4 +30,5 @@ export class Questions {
 
   @ManyToOne(() => User, (user) => user.question)
   created_by: User
+
 }

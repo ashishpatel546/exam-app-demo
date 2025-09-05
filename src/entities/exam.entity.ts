@@ -2,6 +2,10 @@ import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGenerate
 import { Questions } from './questions.entity';
 import { User } from './user.entity';
 
+ export enum Status  {
+  'DRAFT' = 'DRAFT',
+  'PUBLISH'='PUBLISH'
+}
 @Entity()
 export class Exam {
   @PrimaryGeneratedColumn()
@@ -34,4 +38,10 @@ export class Exam {
 
   @ManyToOne(() => User, (user) => user.exam)
   created_by: User
+
+   @Column({
+          type: "enum",
+          enum: Status
+      })
+      role: string
 }

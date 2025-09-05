@@ -17,12 +17,12 @@ export class ExamService {
 
     async addExam(examDto: AddExamDto, userEmail: string){
         try {
-            const userArray = await this.userService.findUserByEmail(userEmail)
-            const user = userArray?.[0]
+            const user = await this.userService.findUserByEmail(userEmail)
+            
             if(!user){
                 throw new BadRequestException('User not found with email provided in the header')
             }
-            if(user[0].role !== 'admin'){
+            if(user.role !== 'admin'){
                 throw new UnauthorizedException('You are not allowed to add exams')
             }
             const newExam = this.examRepo.create({...examDto, created_by: user})

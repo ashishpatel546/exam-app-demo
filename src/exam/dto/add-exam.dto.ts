@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNumber, IsSemVer, IsString, Min } from 'class-validator';
+import { IsEnum, IsInt, IsNumber, IsSemVer, IsString, Min } from 'class-validator';
+import { Status } from 'src/entities/exam.entity';
 
 
 export class AddExamDto {
@@ -29,4 +30,8 @@ export class AddExamDto {
   @IsInt() // Ensures the value is an integer
   @Min(40, { message: 'passing percentage can not be less than 40' }) // Sets a minimum value of 1
   passing_percentage: number;
+
+  @ApiProperty()
+  @IsEnum(Status)
+  status: string
 }

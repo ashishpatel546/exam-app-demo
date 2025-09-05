@@ -28,7 +28,7 @@ export class UserService {
 
     async findUserByEmail(emai: string){
         try {
-            const user = await this.userRepo.findBy({email: emai})
+            const user = await this.userRepo.findOne({where: {email: emai}})
             if(!user){
                 this.logger.error('User Not found')
             }
