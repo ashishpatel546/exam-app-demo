@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { UserMiddleware } from './middlewares/user-middleware';
 import { ExamModule } from './exam/exam.module';
 import { QuestionModule } from './question/question.module';
+import { SharedModule } from './shared-module/shared-module.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { QuestionModule } from './question/question.module';
     UserModule,
     ExamModule,
     QuestionModule,
+    SharedModule
   ],
   controllers: [AppController],
   providers: [AppService],

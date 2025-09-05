@@ -40,8 +40,20 @@ export class ExamController {
         description: 'order_by',
         required: false
     })
+    @ApiProperty({
+        name: 'limit',
+        description: 'limit default 10',
+        required: false,
+        type: Number
+    })
+    @ApiProperty({
+        name: 'offset',
+        description: 'offset',
+        required: false,
+        type: Number
+    })
     @Get('list-exams')
-    listExams(@Query('order_by') orderBy?: string, @Query('exam_name') exam_name?: string){
-        return this.service.listExam(exam_name, orderBy)
+    listExams(@Query('order_by') orderBy?: string, @Query('exam_name') exam_name?: string, @Query('limit') limit=10, @Query('offset') offset=0){
+        return this.service.listExam(limit, offset, exam_name, orderBy)
     }
 }

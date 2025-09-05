@@ -25,6 +25,9 @@ export class ExamService {
             if(user.role !== 'admin'){
                 throw new UnauthorizedException('You are not allowed to add exams')
             }
+            if(examDto.total_question < examDto.question_in_exam){
+                throw new BadRequestException('Total question should be greater than question in exam')
+            }
             const newExam = this.examRepo.create({...examDto, created_by: user})
                 // newExam.created_by = [user];
             await this.examRepo.save(newExam)
@@ -38,7 +41,7 @@ export class ExamService {
         }
     }
 
-    async listExam(exam_name?: string, orderBy= 'exam_name'){
+    async listExam(limit: number, offset=0, exam_name?: string, orderBy= 'exam_name'){
         try {
             let query = this.examRepo.createQueryBuilder('exam').select()
             if(exam_name){
@@ -47,7 +50,13 @@ export class ExamService {
             if(orderBy){
                 query.orderBy(`exam.${orderBy}`, 'ASC')
             }
-            const result = await query.execute()
+            if(limit){
+            query.take(limit)
+        }
+        if(offset){
+            query.skip(offset)
+        }
+            const result = await query.getMany()
             return result
         } catch (error) {
             this.logger.error(error.message)
